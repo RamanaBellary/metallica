@@ -1,0 +1,44 @@
+<!--<div style='cursor: pointer; cursor: hand;float: right;margin:0.5em'>
+
+<label for="userName">User Name:</label>
+<input type="text" [(ngModel)]="userName" id="userName" placeholder="Enter you User Name">
+<br>
+<label for="password">Password:</label>
+<input type="password" [(ngModel)]="password" id=password placeholder="Enter you Password">
+<br>
+<input type="button" (click)='OnLogin()' value="Login">
+</div>-->
+<div style="float: right">
+    <table width="30%" >
+        <tr>
+            <td colspan="1">
+                <label style="padding-right:2px" for="userName">User Name:</label>
+            </td>            
+            <td colspan="1">
+                <input type="text" [(ngModel)]="userName" id="userName" placeholder="Enter you User Name">
+            </td>
+        </tr>
+        <br>
+        <tr>
+            <td colspan="1">
+                <label style="padding-right:12px" for="password">Password:</label>
+            </td>
+            <td colspan="1">
+                <input type="password" [(ngModel)]="password" id=password placeholder="Enter you Password">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <label style="padding-right:12px;color:red" id="lblLoginMessage">{{lblLoginMessage}}</label>
+            </td>
+        </tr>
+        <br>
+        <tr>
+            <td></td>
+            <td colspan="2">
+                <input type="button" (click)='OnLogin()' value="Login">
+                <input type="button" (click)='OnCancel()' value="Cancel">
+            </td>
+        </tr>
+    </table>
+</div>

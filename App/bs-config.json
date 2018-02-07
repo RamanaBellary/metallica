@@ -1,0 +1,5 @@
+{
+  "port": 4000,
+  "files": ["D:\\Mine\\Samples\\MEAN STACK\\Angular\\RIS\\Angular\\**.{html,htm,css,js}"],
+  "server": { "baseDir": "./index.html" }
+}

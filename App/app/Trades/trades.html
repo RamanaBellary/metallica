@@ -1,0 +1,181 @@
+<div class="container">
+    <table border="1" width="100%">
+        <tr>
+            <td colspan="2">
+                <!--<h1>Search Area</h1>-->
+                <div class="row" style="margin:5px;">
+                    <label for="commodity">Commodity:</label>
+                    <select [(ngModel)]="commodity">
+                            <option *ngFor="#cmdty of commodityList" value= {{cmdty.Code}}>
+                                {{cmdty.Description}}
+                            </option>
+                        </select>
+
+                    <span style="margin:10px"></span>
+
+                    <label for="counterParty">Counter Party:</label>
+                    <select [(ngModel)]="counterParty">
+                            <option *ngFor="#cpty of counterPartyList" value= {{cpty.Code}}>
+                                {{cpty.Description}}
+                            </option>
+                        </select>
+
+                    <span style="margin:10px"></span>
+
+                    <label for="location">Location:</label>
+                    <select [(ngModel)]="location">
+                            <option *ngFor="#loc of locationList" value= {{loc.Code}}>
+                                {{loc.Description}}
+                            </option>
+                        </select>
+
+                    <span style="margin:10px"></span>
+
+                    <label for="side">Side:</label>
+                    <!--<input type="radio" name="side" (click)="onSearchSideSelectionChange('Buy')" [(checked)]="'Buy' == searchSide" [(ngModel)]="searchSide" value="Buy">Buy
+                    <input type="radio" name="side" (click)="onSearchSideSelectionChange('Sell')" [(checked)]="'Sell' == searchSide" [(ngModel)]="searchSide" value="Sell">Sell-->
+                    <input type="radio" name="searchSide" (click)="onSearchSideSelectionChange('Buy')" [(checked)]="'Buy' == searchSide" value="Buy">Buy
+                    <input type="radio" name="searchSide" (click)="onSearchSideSelectionChange('Sell')" [(checked)]="'Sell' == searchSide" value="Sell">Sell
+
+                    <span style="margin:10px"></span>
+
+                    <input style="margin:auto;width:70px;margin:1px" type="button" (click)='onClear()' value="Clear">
+                    <input style="margin:auto;width:70px;margin:1px" type="button" (click)='onSearch()' value="Search">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">
+                <div class="row" style="margin:5px;border:0.1px solid;color:white;background-color:chocolate;font-weight:Bold">
+                    <div class="col-md-2 ">Trade Date</div>
+                    <div class="col-md-1 " style="margin-left:-20px">Commodity</div>
+                    <div class="col-md-1 " style="margin-left:10px">Side</div>
+                    <div class="col-md-1 ">Qty</div>
+                    <div class="col-md-1 ">Price</div>
+                    <div class="col-md-1 ">Counter Party
+                    </div>
+                    <div class="col-md-1 ">Location</div>
+                    <div class="col-md-1 ">Status</div>
+                    <div class="col-md-1 " style="margin-left:40px">Delete Trade
+                    </div>
+                </div>
+
+                <div class="row" style="margin:5px;border:0.1px solid;" *ngFor="#trade of tradesList"
+                    (click)="tradeSelected(trade)">
+                    <div class="col-md-2 ">{{ formatDate(trade.TradeDate) | date:'shortDate'}}</div>
+                    <div class="col-md-1 ">{{trade.Commodity}}</div>
+                    <div class="col-md-1 ">{{trade.Side}}</div>
+                    <div class="col-md-1 ">{{trade.Qty}}</div>
+                    <div class="col-md-1 ">{{trade.Price}}</div>
+                    <div class="col-md-1 ">{{trade.CounterParty}}</div>
+                    <div class="col-md-1 ">{{trade.Location}}</div>
+                    <div class="col-md-1 ">{{trade.Status}}</div>
+                    <a style="margin-left:40px" class="col-md-1" (click)='onDelete()'>
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                </div>
+            </td>
+            <td *ngIf="selectedTrade" valign="top">
+                <table style="margin:5px;">
+                    <tr style="border:1px solid;color:brown;background-color:darkgrey">
+                        <td>Trade ID:</td>
+                        <td><label>{{selectedTrade._id}}</label></td>
+                    </tr>
+                    <br>
+                    <tr>
+                        <td>Trade Date:</td>
+                        <td>
+                            <input type="date" [(ngModel)]="selectedTrade.TradeDate" placeholder="Trade Date">
+                        </td>
+                    </tr>
+                    <br>
+                    <tr>
+                        <td>Commodity:</td>
+                        <!--<td><input type="text" [(ngModel)]="selectedTrade.Commodity" placeholder="Commodity"></td>-->
+                        <select (ngModelChange)="onCommodityChanged($event)" [(ngModel)]="selectedTrade.Commodity">
+                            <option *ngFor="#cmdty of commodityList" value= {{cmdty.Code}}>
+                                {{cmdty.Description}}
+                            </option>
+                        </select>
+                    </tr>
+                    <br>
+                    <tr>
+                        <td>Side:</td>
+                        <td>
+                            <input type="radio" name="side" (click)="onSideSelectionChange('Buy')" [(checked)]="'Buy' == selectedTrade.Side" value="Buy">Buy
+                            <input type="radio" name="side" (click)="onSideSelectionChange('Sell')" [(checked)]="'Sell' == selectedTrade.Side" value="Sell">Sell
+                            <!--<div *ngFor="#option of sideList">
+                                <input type="radio" name="sides" (click)="onSideSelectionChange(option.value)" [(checked)]="option.value == selectedTrade.Side"
+                                    value={{option.value}}>{{option.value}}
+                            </div>-->
+                        </td>
+                    </tr>
+                    <br>
+                    <tr>
+                        <td>Qty:</td>
+                        <td><input type="text" [(ngModel)]="selectedTrade.Qty" placeholder="Qty"></td>
+                    </tr>
+                    <br>
+                    <tr>
+                        <td>Price:</td>
+                        <td><input type="text" [(ngModel)]="selectedTrade.Price" placeholder="Price"></td>
+                    </tr>
+                    <br>
+                    <tr>
+                        <td>CounterParty:</td>
+                        <!--<td><input type="text" [(ngModel)]="selectedTrade.CounterParty" placeholder="CounterParty"></td>-->
+                        <select (ngModelChange)="onCoutnerPartyChanged($event)" [(ngModel)]="selectedTrade.CounterParty">
+                            <option *ngFor="#cpty of counterPartyList" value= {{cpty.Code}}>
+                                {{cpty.Description}}
+                            </option>
+                        </select>
+                    </tr>
+                    <br>
+                    <tr>
+                        <td>Location:</td>
+                        <!--<td><input type="text" [(ngModel)]="selectedTrade.Location" placeholder="Location"></td>-->
+                        <select (ngModelChange)="onLocationChanged($event)" [(ngModel)]="selectedTrade.Location">
+                            <option *ngFor="#loc of locationList" value= {{loc.Code}}>
+                                {{loc.Description}}
+                            </option>
+                        </select>
+                    </tr>
+                    <br>
+                    <tr>
+                        <td>Status:</td>
+                        <!--<td><input type="text" [(ngModel)]="selectedTrade.Status" placeholder="Status"></td>-->
+                        <select (ngModelChange)="onStatusChanged($event)" [(ngModel)]="selectedTrade.Status">
+                            <option *ngFor="#status of statusList" value= {{status.value}}>
+                                {{status.value}}
+                            </option>
+                        </select>
+                    </tr>
+                </table>
+                <table align="center">
+                    <tr>
+                        <td>
+                            <input style="margin:auto;width:70px;margin:1px" type="button" (click)='onCancel()' value="Cancel">
+                        </td>
+                        <td>
+                            <input style="margin:auto;width:70px;margin:1px" type="button" (click)='createNewTrade()' value="New">
+                        </td>
+                        <td>
+                            <input style="margin:auto;width:70px;margin:1px" type="button" (click)='onSave()' value="Save">
+                        </td>
+                    </tr>
+                    <br>
+                </table>
+                <!--<div *ngIf="selectedTrade">
+                    <p>Trade Date: <input type="Date" [(ngModel)]="selectedTrade.TradeDate" placeholder="Trade Date"></p>
+                    <p>Commodity: <input type="text" [(ngModel)]="selectedTrade.Commodity" placeholder="Commodity"></p>
+                    <p>Side: <input style="margin:5px" type="text" [(ngModel)]="selectedTrade.Side" placeholder="Side"></p>
+                    <p>Qty: <input type="text" [(ngModel)]="selectedTrade.Qty" placeholder="Qty"></p>
+                    <p>Price: <input type="text" [(ngModel)]="selectedTrade.Price" placeholder="Price"></p>
+                    <p>CounterParty: <input type="text" [(ngModel)]="selectedTrade.CounterParty" placeholder="CounterParty"></p>
+                    <p>Location: <input type="text" [(ngModel)]="selectedTrade.Location" placeholder="Location"></p>
+                    <p>Status: <input type="text" [(ngModel)]="selectedTrade.Status" placeholder="Status"></p>
+                </div>-->
+            </td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,48 @@
+<div>
+    <!--<header>-->
+    <fieldset style="background-color:skyblue;margin:auto;padding:0.5em;width:25em">
+        <!--<legend>User Details:</legend>-->
+        <p>User Name:
+            <input type="text" [(ngModel)]="userName" placeholder="Enter you User Name">
+            <label style="color:red">*</label>
+        </p>
+        <p>First Name:
+            <input type="text" [(ngModel)]="firstName" placeholder="Enter you First Name">
+            <label style="color:red">*</label>
+        </p>
+        <p>Last Name:
+            <input type="text" [(ngModel)]="lastName" placeholder="Enter you Last Name">
+            <label style="color:red">*</label>
+        </p>
+        <!--<p>Gender: 
+                <input type="radio" name="gender" value="male" [(ngValue)]="Gender" checked> Male<br>
+                <input type="radio" name="gender" value="female" [(ngValue)]="Gender"> Female<br>                
+            </p>-->
+
+        <p>Gender: male <input #m [checked]="gender == m.value" (click)="Gender = m.value" name="Gender" value="male" type="radio">            female <input #f [checked]="gender == f.value" (click)="Gender = f.value" name="Gender" value="female" type="radio">
+        </p>
+
+        <p>DoB:
+            <input type="date" [(ngModel)]=dateOfBirth placeholder="mm/dd/yyyy">
+        </p>
+        <p>Email ID:
+            <input type="email" [(ngModel)]="emailID" placeholder="user@domain.com">
+            <label style="color:red">*</label>
+        </p>
+        <p>Telephone:
+            <input type="tel" [(ngModel)]="contactNo" placeholder="Enter your contact number">
+        </p>
+
+        <p>Password:
+            <input type="password" [(ngModel)]="password" placeholder="Enter your password">
+            <label style="color:red">*</label>
+        </p>
+
+        <p *ngIf=signUpMessage><label style="color:red">{{signUpMessage}}</label>
+
+        <p>
+            <input style="margin:auto" type="button" (click)='OnSignUp()' value="Sign Up">
+        </p>
+    </fieldset>
+    <!--</header>-->
+</div>

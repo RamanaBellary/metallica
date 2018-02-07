@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <base href="/">
+
+  <title>Metallica App</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!--<link rel="stylesheet" href="bootstrap.css"/>-->
+  <link rel="stylesheet" type="text/css" href="styles.css" />
+  <link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+  <link href="node_modules/bootstrap/dist/css/custom.css" rel="stylesheet" />
+
+  <!-- IE required polyfills, in this exact order -->
+  <script src="node_modules/es6-shim/es6-shim.min.js"></script>
+  <script src="node_modules/systemjs/dist/system-polyfills.js"></script>
+  <script src="node_modules/angular2/es6/dev/src/testing/shims_for_IE.js"></script>
+
+  <!-- Angular polyfill required everywhere -->
+  <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+
+  <script src="node_modules/systemjs/dist/system.src.js"></script>
+  <script src="node_modules/rxjs/bundles/Rx.js"></script>
+  <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+  <script src="node_modules/angular2/bundles/router.dev.js"></script>
+  <script src="node_modules/angular2/bundles/http.dev.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script> 
+
+  <!--<script src="node_modules/a2-in-memory-web-api/web-api.js"></script>-->
+
+  <script>
+    System.config({packages:{
+      api: {format: 'register',defaultExtension: 'js'},
+      app: {format: 'register',defaultExtension: 'js'}
+    }});
+    System.import('app/main')
+          .then(null, console.error.bind(console));
+  </script>
+
+</head>
+
+<body>
+  <metallica-app>Loading Metallica App ...</metallica-app>
+</body>
+
+</html>

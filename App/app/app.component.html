@@ -1,0 +1,24 @@
+<div>
+    <div style='cursor: pointer; cursor: hand;float: right;margin:0.5em'>
+        <label *ngIf='globalMembersUtil.IsUserLoggedIn' style='margin-right:1em;color:green'>Welcome <span style="color:brown">{{globalMembersUtil.LoggedInUserName}}!!</span></label>
+        <a *ngIf='!globalMembersUtil.IsUserLoggedIn' (click)='NavigateToLoginPage()' >Login</a>
+        <a *ngIf='!globalMembersUtil.IsUserLoggedIn' (click)='NavigateToSignUpPage()' >SignUp</a>
+        <a *ngIf='globalMembersUtil.IsUserLoggedIn' (click)='Logout()' >Logout</a>
+    </div>
+    <h1 align="center">Metallica App</h1>
+    <nav class='navbar navbar-default' >
+        <div class='container-fluid'>
+            <ul class='nav navbar-nav'>
+                <li><a [routerLink]="['Home']">Home</a></li>
+                <li *ngIf='globalMembersUtil.IsUserLoggedIn'><a [routerLink]="['Trades']" >Trades</a></li>
+            </ul>
+        </div>        
+    </nav>
+    <!--<div>
+            <login-page (onUserLoggedIn)="onUserLoggedIn($event)"></login-page>
+    <div>-->
+    <div class='container'>
+        <router-outlet>
+        </router-outlet>
+    </div>
+</div>
