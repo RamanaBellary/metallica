@@ -66,8 +66,10 @@ System.register(['angular2/core', "angular2/common", 'angular2/router', 'angular
                             .subscribe(function (res) { return _this.afterFetchingTrades(res); });
                     };
                     this.searchSide = undefined;
-                    //this.socket = io.connect('http://localhost:3012');
-                    //this.socket.on('tradeUpdated',function(data){console.log('notification from service:'+ data)});
+                    this.socket = io.connect('http://localhost:3012');
+                    this.socket.on('tradeUpdated', function (data) {
+                        console.log("Notifications from service:" + JSON.parse(JSON.stringify(data)).msg);
+                    });
                     if (globalMembersUtil.IsUserLoggedIn) {
                         RefDataService.fetchCommodites().subscribe(function (d) { _this.commodityList = d; });
                         RefDataService.fetchCounterParties().subscribe(function (d) { _this.counterPartyList = d; });
@@ -76,7 +78,6 @@ System.register(['angular2/core', "angular2/common", 'angular2/router', 'angular
                     }
                     else {
                         console.log('First user should be logged-in');
-                        this.router.navigate(['/Login']);
                     }
                 }
                 Trades.prototype.afterFetchingTrades = function (res) {

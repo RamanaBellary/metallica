@@ -21,7 +21,8 @@ eventEmitter.on('tradeUpdated', tradeEventHandler);
 //socket setup
 var io = socket(server);
 
-// setInterval(() => {io.sockets.emit('tradeUpdated',{msg:'Test msg from service'});}, 1000);
+//Below piece of code is just a dummy method to emit notification to client on speicfic intervals..
+setInterval(() => {io.sockets.emit('tradeUpdated',{msg:'Test msg from service'});}, 10000);
 
 io.on('connection', (socket) => {
     console.log('made socket connection:' + socket.id);

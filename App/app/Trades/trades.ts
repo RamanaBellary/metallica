@@ -45,8 +45,10 @@ export class Trades {
         private RefDataService: RefDataService
     ) {
         this.searchSide = undefined;
-        //this.socket = io.connect('http://localhost:3012');
-        //this.socket.on('tradeUpdated',function(data){console.log('notification from service:'+ data)});
+        this.socket = io.connect('http://localhost:3012');
+        this.socket.on('tradeUpdated',function(data){
+            console.log("Notifications from service:"+ JSON.parse(JSON.stringify(data)).msg);
+        });
         if(globalMembersUtil.IsUserLoggedIn){
         RefDataService.fetchCommodites().subscribe(d => { this.commodityList = d });
         RefDataService.fetchCounterParties().subscribe(d => { this.counterPartyList = d });
@@ -55,7 +57,7 @@ export class Trades {
     }
     else{
         console.log('First user should be logged-in');
-        this.router.navigate(['/Login']);
+        // this.router.navigate(['/Login']);//TODO:Uncomment after testing..
     }
     }
 
